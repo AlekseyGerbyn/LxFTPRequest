@@ -155,7 +155,8 @@ static NSInteger const UPLOAD_BUFFER_SIZE = 1024;
 
 - (void)stop
 {
-    
+    CFBridgingRelease(_streamClientContext.info);
+    _streamClientContext.info = NULL;
 }
 
 - (NSString *)errorMessageOfCode:(NSInteger)code
