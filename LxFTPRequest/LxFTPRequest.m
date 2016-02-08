@@ -789,14 +789,18 @@ void uploadWriteStreamClientCallBack(CFWriteStreamRef stream, CFStreamEventType 
 
 - (void)stop
 {
-    CFWriteStreamUnscheduleFromRunLoop(self.writeStream, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-    CFWriteStreamClose(self.writeStream);
-    CFRelease(self.writeStream);
-    self.writeStream = nil;
+    if (self.writeStream != nil) {
+        CFWriteStreamUnscheduleFromRunLoop(self.writeStream, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
+        CFWriteStreamClose(self.writeStream);
+        CFRelease(self.writeStream);
+        self.writeStream = nil;
+    }
     
-    CFReadStreamClose(self.readStream);
-    CFRelease(self.readStream);
-    self.readStream = nil;
+    if (self.readStream != nil) {
+        CFReadStreamClose(self.readStream);
+        CFRelease(self.readStream);
+        self.readStream = nil;
+    }
 }
 
 @end
